@@ -1,0 +1,91 @@
+
+
+## to configure:
+
+./daq.sh
+
+
+
+## to run:
+
+python board.py
+
+
+## to clean
+./Clean.sh
+./clear_tables.pl
+
+
+## to see the db tables
+./show_db
+
+
+##############################
+#### params.inp parameters ###
+##############################
+
+
+- print 0
+Control the verbosity (1 for debug)
+
+- window 1e-6
+coincidence window. Intrinsic minimum is ~ 1.e-7
+
+- n_coincidences 4
+This is the number of boards that have to be in coincidence for an event to be selected
+
+- n_layers_per_event 15
+This is the number of layers that have to be on for an event to be selected
+
+- n_layers_per_board 3
+Number of layers that have to be on for a board to be selected
+
+- timeout 1000
+After this time (ms) a board aborts initializing if no signal is received
+
+- emit_trigger 0
+Emit trigger pulse
+
+- n_coincidence_events_per_root_file 20
+This is the number of entries written to each root file by "convert_data_to_root.C"
+
+- dbname boards
+- host 127.0.0.1
+- user postgres
+- password f
+database parameters
+
+
+
+
+##############################
+#### data.root ###
+##############################
+
+- one entry = one coincidence event
+
+- a signal = the signal sent by a board in coincidence
+
+- nsignals = number of boards in coincidence
+- _n_layers = number of layers in coincidence
+- _event_number[_nsignals] = event number for given signal (i.e. board)
+- _board_address[_nsignals] =
+- _packet_number[_nsignals] = 
+- _type[_nsignals]
+- _time[_nsignals] = time for given signal (i.e. board)
+- _nchannels_per_event[_nsignals] = n of channels for given signal (i.e. board)
+- _channels[_nsignals][ich] = channel number ich for given signal (i.e. board)
+
+
+####################################################
+
+level (N boards):
+
+[000000 t1 c11 ... c1n][000001 t2 c21 ... c2m][000010 t3 c3...][000011 tN cN...]
+
+
+
+
+
+
+

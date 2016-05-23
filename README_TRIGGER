@@ -1,0 +1,13 @@
+Instructions to operate arduino board as trigger:
+
+1. cd ~/beep
+2. ino clean
+3. ino build
+4. sudo ino upload (enter password when prompted) 
+5. sudo arduino&
+6. In the interface that opens, click on the "Serial Monitor" button in the same top row as the check mark and the arrow pointing right
+7. Leave everything open. Then cd ~/usbreader_database
+8.  sudo ./trigger_init.sh
+9. ./trigger.sh (this step is unnecessary if you wish to run DAQ; only for manual verification)
+
+*To change duration of pulse, open ~/beep/src/sketch.ino and change the value in int duration line. Units are ms

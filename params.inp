@@ -1,0 +1,15 @@
+window 1e-7
+n_coincidences 4
+n_layers_per_event 15
+n_layers_per_board 4
+
+n_coincidence_events_per_root_file 20
+
+emit_trigger 0
+timeout 1000
+print 0
+
+dbname boards
+host 127.0.0.1
+user postgres
+password f

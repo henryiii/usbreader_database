@@ -1,0 +1,8 @@
+ NUM_BOARDS 4
+dev3   000000
+dev2   000001
+dev1   000011
+dev0   000010
+window 1e-07
+n_coincidences 4
+n_layers_per_event 15

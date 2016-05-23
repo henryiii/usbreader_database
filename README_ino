@@ -1,0 +1,10 @@
+sudo apt-get update
+sudo apt-get install arduino arduino-core
+sudo pip install ino
+mkdir beep
+cd beep/
+sudo ino init -t blink
+sudo pip install --upgrade six
+ino build
+ino upload
+

@@ -1,0 +1,1 @@
+/home/muontelescope/usbreader_database/inos/pulse_from_pin2.ino

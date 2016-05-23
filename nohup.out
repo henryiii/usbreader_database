@@ -1,0 +1,24 @@
+      ************************
+      *** MUON STAND DAQ *****
+      ************************
+ 
+output flag? default = 2015-03-10-16-03 Traceback (most recent call last):
+  File "./board.py", line 139, in <module>
+    main()
+  File "./board.py", line 64, in main
+    output_flag = ask_output_flag(output_flag)
+  File "./board.py", line 46, in ask_output_flag
+    choice = raw_input('output flag? default = %s ' %output_flag)
+IOError: [Errno 9] Bad file descriptor
+      ************************
+      *** MUON STAND DAQ *****
+      ************************
+ 
+output flag? default = 2015-03-10-16-03 Traceback (most recent call last):
+  File "./board.py", line 139, in <module>
+    main()
+  File "./board.py", line 64, in main
+    output_flag = ask_output_flag(output_flag)
+  File "./board.py", line 46, in ask_output_flag
+    choice = raw_input('output flag? default = %s ' %output_flag)
+IOError: [Errno 9] Bad file descriptor
