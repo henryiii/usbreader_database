@@ -20,7 +20,7 @@ def wrap_command(command):
         command & FG
         #else:
         #    raise RuntimeError("Operation canceled by user")
-    return func 
+    return func
 
 select = local['./select']
 setup_daq = wrap_command(sudo[local['./setup_daq']])
@@ -34,12 +34,14 @@ def get_boards():
         boards = f.readlines()
     return reversed(sorted(boards[1:]))
 
-def execute_receive_one_from_db(board,events):
+def execute_receive_one_from_db(board, events, tout = .03):
     receive_one = sudo[local['./receive_one']]
     command = receive_one[board, events]
+
+    time.sleep(tout)
     print('Running', command, 'in background.')
-    
-    return command 
+
+    return command & BG(stderr=sys.stderr, stdout=sys.stdout)
 
 class Board(cli.Application):
     '''This is documentation.'''
@@ -53,33 +55,31 @@ class Board(cli.Application):
 
     def main(self):
 
-	events = self.time_
+        events = self.time_
         output_flag = self.output_flag
-        
+
         setup_daq()
         boards = get_boards()
-       
-        vals = [execute_receive_one_from_db(board[0:4],events).bgrun(stderr=sys.stderr, stdout=sys.stdout) for board in boards]
 
+        # Run receiving in the background
         tout = .03
-        with vals[0]:
-            time.sleep(tout)
-            with vals[1]:
-                time.sleep(tout)
-                with vals[2]:
-                    time.sleep(tout)
-                    with vals[3]:
-                        time.sleep(1)
-                        select & FG
+        outputs = [execute_receive_one_from_db(board[0:4], events, tout) for board in boards)
+
+        # Run select in foreground
+        select & FG
+
+        # Make sure receiving is finalized
+        for out in outputs:
+            out.join()
 
         convert_data_to_root()
         viewer()
         analyze_data()
-                
+
         fulldirname = local.cwd / 'output' / ('output.' + output_flag)
         if not fulldirname.exists():
             fulldirname.mkdir()
-        
+
         fulldatadirname = fulldirname / "data"
         if not fulldatadirname.exists():
              fulldatadirname.mkdir()
@@ -87,12 +87,12 @@ class Board(cli.Application):
         rootfiles = local.cwd // "coincidence_data_*.root"
         for f in rootfiles:
             newname = fulldatadirname / (output_flag + "-" + f.name)
-            print(' rename f', f, 'newname', newname) 
+            print(' rename f', f, 'newname', newname)
             f.move(newname)
 
-        pictures = local.cwd / 'events' // '*jpg' 
+        pictures = local.cwd / 'events' // '*jpg'
         picdirname = fulldirname / 'events'
-        
+
         if not picdirname.exists():
             picdirname.mkdir()
 
